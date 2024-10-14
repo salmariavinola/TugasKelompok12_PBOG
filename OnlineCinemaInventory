@@ -1,0 +1,41 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class OnlineCinemaInventory implements Storable {
+    private Map<String, Integer> movieMap = new HashMap<>();
+    private int totalMovies = 0;
+
+    // Implementasi metode tambahItem untuk menambah film
+    @Override
+    public void tambahItem(String movie, int jumlah) {
+        movieMap.put(movie, movieMap.getOrDefault(movie, 0) + jumlah);
+        totalMovies += jumlah;
+        System.out.println(jumlah + " salinan film '" + movie + "' berhasil ditambahkan ke bioskop online.");
+    }
+
+    // Implementasi metode hapusItem untuk menghapus film
+    @Override
+    public void hapusItem(String movie) {
+        if (movieMap.containsKey(movie)) {
+            totalMovies -= movieMap.get(movie); // Kurangi total jumlah film
+            movieMap.remove(movie); // Hapus film dari Map
+            System.out.println("Film '" + movie + "' berhasil dihapus dari bioskop online.");
+        } else {
+            System.out.println("Film '" + movie + "' tidak ditemukan di bioskop online.");
+        }
+    }
+
+    // Implementasi metode tampilkanItem untuk menampilkan semua film
+    @Override
+    public void tampilkanItem() {
+        if (movieMap.isEmpty()) {
+            System.out.println("Tidak ada film di bioskop online.");
+        } else {
+            System.out.println("Daftar film di bioskop online:");
+            for (Map.Entry<String, Integer> entry : movieMap.entrySet()) {
+                System.out.println("Film: '" + entry.getKey() + "', Jumlah Salinan: " + entry.getValue());
+            }
+            System.out.println("Total jumlah semua salinan film: " + totalMovies);
+        }
+    }
+}
