@@ -13,6 +13,14 @@ public class Main {
             System.out.println("3. Tampilkan film");
             System.out.println("4. Keluar");
             System.out.print("Pilihan: ");
+
+            // Cek jika input bukan angka (agar program tidak error)
+            if (!scanner.hasNextInt()) {
+                System.out.println("Input tidak valid. Harap masukkan angka.");
+                scanner.next(); // Konsumsi input tidak valid
+                continue;
+            }
+
             int pilihan = scanner.nextInt();
             scanner.nextLine(); // Konsumsi newline
 
@@ -20,28 +28,40 @@ public class Main {
                 case 1:
                     System.out.print("Masukkan judul film: ");
                     String judulFilm = scanner.nextLine();
-                    System.out.print("Masukkan jumlah salinan film: ");
+                    System.out.print("Masukkan jumlah salinan: ");
+
+                    // Cek jika input bukan angka (jumlah salinan)
+                    if (!scanner.hasNextInt()) {
+                        System.out.println("Input tidak valid. Harap masukkan angka.");
+                        scanner.next(); // Konsumsi input tidak valid
+                        break;
+                    }
+
                     int jumlah = scanner.nextInt();
+                    scanner.nextLine(); // Konsumsi newline
                     bioskop.tambahItem(judulFilm, jumlah);
                     break;
+
                 case 2:
                     System.out.print("Masukkan judul film yang akan dihapus: ");
                     String hapusFilm = scanner.nextLine();
                     bioskop.hapusItem(hapusFilm);
                     break;
+
                 case 3:
                     bioskop.tampilkanItem();
                     break;
+
                 case 4:
                     running = false;
                     System.out.println("Program berakhir.");
                     break;
+
                 default:
                     System.out.println("Pilihan tidak valid.");
                     break;
             }
         }
-
         scanner.close();
     }
 }
